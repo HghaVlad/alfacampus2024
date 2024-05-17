@@ -24,8 +24,8 @@ def make_dataset(input_df: pd.DataFrame, end_date):
     output_df = input_df.groupby("clientbankpartner_pin").agg({"client_pin": "count", "partnerrolestart_date": "min", "client_start_date": ["min", "max", "median", lambda x: sorted(list(x))]})
 
     # Кол-во привлечений в неделю/месяц
-    output_df["average_month_invites"] = output_df["client_pin"]["count"]/ output_df["client_start_date"]["<lambda_0>"].agg(lambda x: len(set(map(lambda y: y.month, x))))
-    output_df["average_week_invites"] = output_df["client_pin"]["count"]/ output_df["client_start_date"]["<lambda_0>"].agg(lambda x: len(set(map(lambda y: y.week, x))))
+    output_df["average_month_invition"] = output_df["client_pin"]["count"]/ output_df["client_start_date"]["<lambda_0>"].agg(lambda x: len(set(map(lambda y: y.month, x))))
+    output_df["average_week_invition"] = output_df["client_pin"]["count"]/ output_df["client_start_date"]["<lambda_0>"].agg(lambda x: len(set(map(lambda y: y.week, x))))
     # Сколько дней проходит между первым-вторым, предпоследним-последним привлечением
     output_df[["diff_day_first", "diff_day_second", "diff_days_mean", "diff_days_last", "diff_days_prelast"]] = output_df["client_start_date"]["<lambda_0>"].apply(days_between_invites).tolist()
     # Сколько дней прошло с последнего/медианного привлечения
